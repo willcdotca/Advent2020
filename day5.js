@@ -756,29 +756,15 @@ BFFFBBFRRR
 FFBFBFFRRR
 BFFBBBBRLL`.split(/\n/);
 
-// Old
-const calc = (w, v, s) => {
-  v = [...new Array(v)].map((b, c) => c);
-  w.split('').forEach(b => {
-    let c = -1 * Math.floor(v.length / 2);
-    v = (b === s) ? v.slice(0, c) : v.slice(c);
-  });
-  return parseInt(v);
-};
-let seat = passports
-    .map(a =>
-        (calc(a.slice(0, -3), 128, 'F') * 8) + calc(a.slice(-3), 8, 'L'))
-    .sort((a, b) => a - b)
-    .slice(8, -8)
-    .map((a, b, c) =>
-      c[b + 1] && c[b - 1] && (c[b] - c[b - 1] !== 1 || c[b + 1] - c[b] !== 1) ? a : false)
-    .filter(Boolean)[0]+1;
-
-// Revised
 const check = (a, b) => a && b - a === 2
+
+start = new Date().getTime()
 let simple = passports
     .map(a => parseInt(a.replace(/[BR]/g, 1).replace(/[FL]/g, 0), 2))
     .sort((a, b) => a - b)
+
+end  = new Date().getTime()
+console.log(end-start)
 
 console.log(`
   Part 1: ${simple[simple.length-1]}
