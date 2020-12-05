@@ -1054,21 +1054,20 @@ iyr:2023
 
 byr:2001 hcl:#4784a2 hgt:161cm iyr:2014 eyr:2025 pid:955262336
 ecl:amb`;
+let fields = [
+  /^byr:(19[2-9]\d|200[0-2])$/,
+  /^iyr:(20[1]\d|2020)$/,
+  /^eyr:(20[2]\d|2030)$/,
+  /^hgt:((1([5-8]\d|9[0-3])cm)|(([5-6]\d|7[0-6])in))$/,
+  /^hcl:#[a-fA-F0-9]{6}$/,
+  /^ecl:(amb|blu|brn|gry|grn|hzl|oth)$/,
+  /^pid:[0]*\d{9}$/,
+];
 
-let fields = {
-  'byr': /^(19[2-9]\d|200[0-2])$/,
-  'iyr': /^(20[1]\d|2020)$/,
-  'eyr': /^(20[2]\d|2030)$/,
-  'hgt': /(^1([5-8]\d|9[0-3])cm$)|(^([5-6]\d|7[0-6])in$)/,
-  'hcl': /^#[a-fA-F0-9]{6}$/,
-  'ecl': /^(amb|blu|brn|gry|grn|hzl|oth)$/,
-  'pid': /^[0]*\d{9}$/,
-};
-let isValid = v => {
-  v = v.split(':');
-  return fields.hasOwnProperty(v[0]) && v[1].match(new RegExp(fields[v[0]])) !==
-      null;
-};
 let passports = raw.split(/\n\n/).map(a => a.split(/\s/));
-let valid = passports.filter(b => b.filter(a => isValid(a)).length === 7).length;
+let valid = passports.filter(b =>
+    b.filter(a =>
+        fields.filter(x => a.match(x)).length,
+    ).length === 7,
+).length;
 console.log(valid);

@@ -199,35 +199,24 @@ let all = [
   1671,
   1807,
   1943].sort();
-
 let findCombo = numbers => {
+  numbers = numbers || [... all]
   let num = numbers.shift();
   let dif = 2020 - num;
   if (numbers.length && !numbers.includes(dif)) return findCombo(numbers);
-  console.log(num,dif)
+  console.log(num, dif);
 };
 
-findCombo([...all])
+findCombo();
 
-let found = false;
-for (const firstKey in all) {
-  let first = all[firstKey];
-  if (!found) {
-    for (const secondKey in all) {
-      let second = all[secondKey];
-      if (!found) {
-        for (const thirdKey in all) {
-          if(!found) {
-            let sum = first + second + all[thirdKey];
-            if (sum === 2020) {
-              found = [first, second, all[thirdKey]];
-              found.push(found.reduce((a,b)=>a*b))
-              console.log(found)
-            }
-          }
-        }
-      }
-    }
+let findTally = (first = 0, second = 0) => {
+  let sum = 2020-(all[first]+all[second])
+  if (!all.includes(sum)) {
+    if (second === all.length) { second = 0; first++; }
+    else { second++ }
+    return findTally(first, second);
   }
-}
+  console.log([all[first], all[second], sum].reduce((a,b)=>a*b));
+};
 
+findTally();
