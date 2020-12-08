@@ -597,11 +597,9 @@ dim chartreuse bags contain 3 shiny gold bags, 2 mirrored olive bags.`.split(
 let g = 'shiny gold';
 let co = 'contain'
 let ex = /(bag|bags)./g
-let ex1 = /(\d|bags|bag|\.)/g
-let ex2 = /(bags|bag|\.)/g
-let a1 = {};
-let a2 = {};
 
+let ex1 = /(\d|bags|bag|\.)/g
+let a1 = {};
 raw.forEach(a =>
     a1[a.split(co)[0].replace(ex, '').trim()]
         = a.split(co)[1].replace(ex1, '').split(/,/g).map(x => x.trim()));
@@ -613,12 +611,15 @@ let c1 = b => {
 };
 
 
+let ex2 = /(bags|bag|\.)/g
+let a2 = {};
 raw.forEach(a =>
     a2[a.split(co)[0].replace(ex, '').trim()]
         = a.split(co)[1].replace(ex2, '').split(/,/g).map(x => {
           let a = x.trim().split(/\s/);
           return a.length === 3 ? [parseInt(a[0]), `${a[1]} ${a[2]}`] : [0, a.join(' ')];
         }));
+
 
 let c2 = (h) => {
   if (!a2[h || g]) return 0;
