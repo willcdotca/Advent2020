@@ -1,3 +1,4 @@
+
 let raw = `iyr:2013 hcl:#ceb3a1
 hgt:151cm eyr:2030
 byr:1943 ecl:grn
@@ -1064,10 +1065,10 @@ let fields = [
   /^pid:[0]*\d{9}$/,
 ];
 
-let passports = raw.split(/\n\n/).map(a => a.split(/\s/));
-let valid = passports.filter(b =>
+let p = raw.split(/\n\n/).map(a => a.split(/\s/));
+let v = p.filter(b =>
     b.filter(a =>
         fields.filter(x => a.match(x)).length,
     ).length === 7,
 ).length;
-console.log(valid);
+console.log(v);
