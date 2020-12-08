@@ -598,6 +598,7 @@ let g = 'shiny gold';
 let co = 'contain'
 let ex = /(bag|bags)./g
 
+
 let ex1 = /(\d|bags|bag|\.)/g
 let a1 = {};
 raw.forEach(a =>
@@ -610,7 +611,6 @@ let c1 = b => {
   return a1[b].filter(a => c1(a)).length;
 };
 
-
 let ex2 = /(bags|bag|\.)/g
 let a2 = {};
 raw.forEach(a =>
@@ -619,12 +619,11 @@ raw.forEach(a =>
           let a = x.trim().split(/\s/);
           return a.length === 3 ? [parseInt(a[0]), `${a[1]} ${a[2]}`] : [0, a.join(' ')];
         }));
-
-
 let c2 = (h) => {
   if (!a2[h || g]) return 0;
   return a2[h || g].reduce((a, b) => a + b[0] + b[0] * c2(b[1]), 0);
 };
+
 
 
 console.log(Object.keys(a1).filter(a => c1(a)).length, c2());
